@@ -28,6 +28,12 @@ public class Segment {
         double perpDx2 = dy;
         double perpDy2 = -dx;
 
-        Point
+        Point endPoint1 = new Point(point.x + perpDx1, point.y + perpDy1);
+        Point endPoint2 = new Point(point.x + perpDx2, point.y + perpDy2);
+
+        Segment segment1 = new Segment(point, endPoint1);
+        Segment segment2 = new Segment(point, endPoint2);
+
+        return new Segment[]{segment1, segment2};
     }
 }
