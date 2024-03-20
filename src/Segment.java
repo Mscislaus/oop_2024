@@ -19,7 +19,15 @@ public class Segment {
 
 
     public static Segment[] perpendicularSegments(Segment segment, Point point) {
-
         double dx = (segment.end.x - segment.begin.x);
+        double dy = (segment.end.y - segment.begin.y);
+
+        double perpDx1 = -dy;
+        double perpDy1 = dx;
+
+        double perpDx2 = dy;
+        double perpDy2 = -dx;
+
+        Point
     }
 }
