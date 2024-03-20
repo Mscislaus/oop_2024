@@ -1,17 +1,25 @@
 import java.lang.Math;
 public class Segment {
-    private Point point1, point2;
+    private Point begin;
+    private Point end;
 
-    public Segment(Point point1, Point point2) {
-        this.point1 = point1;
-        this.point2 = point2;
+    public Segment(Point begin, Point end) {
+        this.begin = begin;
+        this.end = end;
     }
 
-    public void lenght() {
-        System.out.println(Math.sqrt(Math.pow((point2.x-point1.x),2)+Math.pow((point2.y-point1.y),2)));
+    public void length() {
+        System.out.println(Math.sqrt(Math.pow((end.x - begin.x), 2) + Math.pow((end.y - begin.y), 2)));
     }
 
-    public  void toSvg() {
-        System.out.println();
+
+    public String toSvg() {
+        return "<line x1='" + begin.x + "' y1='" + begin.y + "' x2='" + end.x + "' y2='" + end.y + "' stroke=\"black\"/>";
+    }
+
+
+    public static Segment[] perpendicularSegments(Segment segment, Point point) {
+
+        double dx = (segment.end.x - segment.begin.x);
     }
 }
