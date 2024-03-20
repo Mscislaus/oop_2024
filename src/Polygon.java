@@ -13,6 +13,7 @@ public class Polygon {
         for(Point point : points) {
             stringBuilder.append(point.x).append(",").append(point.y).append(" ");
         }
-        return "<line x1='" + begin.x + "' y1='" + begin.y + "' x2='" + end.x + "' y2='" + end.y + "' stroke=\"black\"/>";return
+        stringBuilder.append("\" style=\"fill:none;stroke:black;stroke-width:1\"/>\n");
+        return stringBuilder.toString();
     }
 }
