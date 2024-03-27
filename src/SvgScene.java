@@ -4,22 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SvgScene {
-    List<Polygon> polygons;
+    List<Shape> shapes;
 
     public SvgScene() {
-        polygons = new ArrayList<>();
+        shapes = new ArrayList<>();
     }
 
-    public void add(Polygon polygon) {
-        polygons.add(polygon);
+    public void add(Shape shape) {
+        shapes.add(shape);
     }
 
     public void save(String path) {
         StringBuilder sb = new StringBuilder();
         sb.append("<html><body><svg width=\"1024\" height=\"768\" xmlns=\"http://www.w3.org/2000/svg\">\n");
-        for (Polygon polygon : polygons
+        for (Shape shape : shapes
         ) {
-            sb.append(polygon.toSvg());
+            sb.append(shape.toSvg());
             sb.append("\n");
         }
         sb.append("</svg></body></html>");
