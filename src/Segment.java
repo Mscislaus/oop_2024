@@ -36,4 +36,13 @@ public class Segment {
 
         return new Segment[]{segment1, segment2};
     }
+
+    public static Segment[] perpendicularSegments(Segment segment) {
+        double half = segment.returnLenght() / 2;
+        double px = (segment.end.x - segment.begin.x) / 2;
+        double py = (segment.end.y - segment.begin.y) / 2;
+        double dx = (segment.end.x - segment.begin.x);
+        double dy = (segment.end.y - segment.begin.y);
+        Point center = new Point(px, py);
+    }
 }
