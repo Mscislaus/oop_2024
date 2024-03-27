@@ -29,5 +29,6 @@ public class Polygon {
         for (int i = 0; i < points.length; ++i) {
             points[i] = new Point(src.points[i].x, src.points[i].y);
         }
+        style = new Style(src.style.fillColor, src.style.strokeColor, src.style.strokeWidth);
     }
 }
