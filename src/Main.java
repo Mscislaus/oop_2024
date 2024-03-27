@@ -14,5 +14,12 @@ public class Main extends Segment {
         System.out.println(polygon.toSvg());
         Polygon polygon2 = new Polygon(polygon);
         System.out.println(polygon2.toSvg());
+
+        Point[] pointsArray2 = { new  Point(100, 100), new Point(100, 40) };
+        Polygon p2 = new Polygon(pointsArray2);
+        SvgScene scene = new SvgScene();
+        scene.add(p2);
+        scene.add(polygon);
+        scene.save("./out.html");
     }
 }
