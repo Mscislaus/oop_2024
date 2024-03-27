@@ -1,15 +1,17 @@
 import java.io.StringReader;
 
-public class Polygon {
+public class Polygon extends Shape {
     private Point[] points;
     private Style style;
 
     public Polygon(Point[] points, Style style) {
+        super(style);
         this.points = points;
         this.style = style;
     }
 
     public Polygon(Point[] points) {
+        super(new Style("none","black", 1.0));
         this.points = points;
         this.style = new Style("none","black", 1.0);
     }
@@ -25,6 +27,7 @@ public class Polygon {
     }
 
     public Polygon(Polygon src) {
+        super(new Style(src.style.fillColor, src.style.strokeColor, src.style.strokeWidth));
         this.points = new Point[src.points.length];
         for (int i = 0; i < points.length; ++i) {
             points[i] = new Point(src.points[i].x, src.points[i].y);
