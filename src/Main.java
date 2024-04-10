@@ -8,15 +8,15 @@ public class Main {
         };
         Style style = new Style("purple", "blue", 2.0);
 
-        //Ellipse ellipse = new Ellipse(style, new Vec2(200, 150), new Vec2(60, 35));
+        Ellipse ellipse = new Ellipse(style, new Vec2(200, 150), new Vec2(60, 35));
         Polygon polygon = new Polygon(pointsArray);
 
         SolidFillShapeDecorator solidFillShapeDecorator = new SolidFillShapeDecorator(polygon, "red");
-        //SolidFillShapeDecorator solidFillShapeDecorator1 = new SolidFillShapeDecorator(ellipse, "blue");
+        SolidFillShapeDecorator solidFillShapeDecorator1 = new SolidFillShapeDecorator(ellipse, "blue");
 
         SvgScene svgScene = new SvgScene();
         svgScene.add(solidFillShapeDecorator);
-        //svgScene.add(solidFillShapeDecorator1);
-        svgScene.save("./test.html");
+        svgScene.add(solidFillShapeDecorator1);
+        svgScene.save("./out.html");
     }
 }
