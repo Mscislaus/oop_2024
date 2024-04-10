@@ -1,19 +1,19 @@
 import java.util.Locale;
 
-class Ellipse extends Shape {
-    Point center;
+public class Ellipse implements Shape {
+    Vec2 center;
     double radiusX;
     double radiusY;
-
-    public Ellipse(Point center, double radiusX, double radiusY, Style style) {
-        super(style);
+    Style style;
+    public Ellipse(Vec2 center, double radiusX, double radiusY,Style style) {
+        this.style = style;
         this.center = center;
         this.radiusX = radiusX;
         this.radiusY = radiusY;
     }
 
-    public Ellipse(Point center, double radiusX, double radiusY) {
-        super(new Style("none","black", 1.0));
+    public Ellipse(Vec2 center, double radiusX, double radiusY) {
+        this.style = new Style("none", "black", 1.0);
         this.center = center;
         this.radiusX = radiusX;
         this.radiusY = radiusY;
