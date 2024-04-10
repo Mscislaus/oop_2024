@@ -5,7 +5,8 @@ public class Ellipse implements Shape {
     double radiusX;
     double radiusY;
     Style style;
-    public Ellipse(Vec2 center, double radiusX, double radiusY,Style style) {
+
+    public Ellipse(Vec2 center, double radiusX, double radiusY, Style style) {
         this.style = style;
         this.center = center;
         this.radiusX = radiusX;
