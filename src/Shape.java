@@ -1,4 +1,4 @@
 public interface Shape {
 
-    public String toSvg();
+    public String toSvg(String parameters);
 }

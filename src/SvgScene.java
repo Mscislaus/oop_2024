@@ -17,9 +17,9 @@ public class SvgScene {
     public void save(String path) {
         StringBuilder sb = new StringBuilder();
         sb.append("<html><body><svg width=\"1024\" height=\"768\" xmlns=\"http://www.w3.org/2000/svg\">\n");
-        for (Shape shape : shapes
+        for (Shape i : shapes
         ) {
-            sb.append(shape.toSvg());
+            sb.append(i.toSvg(""));
             sb.append("\n");
         }
         sb.append("</svg></body></html>");
