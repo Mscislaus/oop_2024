@@ -1,6 +1,8 @@
+package polygon;
+
 import java.util.Locale;
 
-public class SolidFillShapeDecorator extends  ShapeDecorator{
+public class SolidFillShapeDecorator extends ShapeDecorator {
     private String color;
     public SolidFillShapeDecorator(Shape decoratedShape, String color) {
         super(decoratedShape);

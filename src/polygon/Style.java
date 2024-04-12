@@ -1,3 +1,5 @@
+package polygon;
+
 import java.util.Locale;
 
 public class Style {

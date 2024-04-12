@@ -1,3 +1,5 @@
+package polygon;
+
 public class Ellipse implements Shape {
     Vec2 center;
     Vec2 radius;

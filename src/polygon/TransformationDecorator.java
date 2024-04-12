@@ -1,4 +1,4 @@
-import java.util.Locale;
+package polygon;
 
 public class TransformationDecorator extends ShapeDecorator {
 

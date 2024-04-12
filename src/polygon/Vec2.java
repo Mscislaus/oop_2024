@@ -1,3 +1,5 @@
+package polygon;
+
 public class Vec2 {
     public final double x,y;
     Vec2(double x, double y){

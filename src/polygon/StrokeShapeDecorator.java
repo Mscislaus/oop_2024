@@ -1,3 +1,5 @@
+package polygon;
+
 public class StrokeShapeDecorator extends ShapeDecorator {
     private String color;
     private double width;

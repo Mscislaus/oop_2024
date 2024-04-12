@@ -1,4 +1,5 @@
-import java.io.StringReader;
+package polygon;
+
 public class Polygon implements Shape {
     private Vec2[] vec2;
     private Style style;
