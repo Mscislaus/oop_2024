@@ -5,12 +5,15 @@ import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 //Zadanie 1.
 // Napisz klasę Person, w której znajdować będą się dane odpowiadające wierszowi pliku.
 // Na tym etapie pomiń wczytywanie rodziców. Napisz metodę wytwórczą fromCsvLine()
 // klasy Person przyjmującą jako argument linię opisanego pliku.
-public class Person implements Serializable{
+public class Person implements Serializable {
     private final String name;
     private final LocalDate birthDate;
     private final LocalDate deathDate;
@@ -23,13 +26,14 @@ public class Person implements Serializable{
         this.parents = new ArrayList<>();
     }
 
-    public static Person fromCsvLine(String csvLine){
-        String[] line= csvLine.split(",",-1);
+    public static Person fromCsvLine(String csvLine) {
+        String[] line = csvLine.split(",", -1);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        LocalDate birthDate = LocalDate.parse(line[1],formatter);
-        LocalDate deathDate = line[2].equals("")?null : LocalDate.parse(line[2],formatter);
+        LocalDate birthDate = LocalDate.parse(line[1], formatter);
+        LocalDate deathDate = line[2].equals("") ? null : LocalDate.parse(line[2], formatter);
         return new Person(line[0], birthDate, deathDate);
     }
+
     //Zadanie 2.
     //Napisz metodę fromCsv(), która przyjmie ścieżkę do pliku i zwróci listę obiektów typu Person.
     public static List<Person> fromCsv(String path) {
@@ -45,8 +49,8 @@ public class Person implements Serializable{
             while ((line = br.readLine()) != null) {
                 // <---------------------------------zad2
                 //Person person = Person.fromCsvLine(line);
-                   // person.validateLifeSpan();
-                   // person.validateAmbiguous(people);
+                // person.validateLifeSpan();
+                // person.validateAmbiguous(people);
 
                 //people.add(person);
                 // <---------------------------------zad2
@@ -57,28 +61,27 @@ public class Person implements Serializable{
 
                 Person person = personWithNames.getPerson();
                 people.add(person);
-                mapPersonWithParentNames.put(person.name,personWithNames);
+                mapPersonWithParentNames.put(person.name, personWithNames);
                 //<-------------------------------- zad5
 
             }
             PersonWithParentsNames.linkRelatives(mapPersonWithParentNames);
             try {
-                for(Person person: people) {
+                for (Person person : people) {
                     System.out.println("Sprwadzam");
                     person.validateParentingAge();
                 }
-            }
-            catch(ParentingAgeException exception) {
+            } catch (ParentingAgeException exception) {
                 Scanner scanner = new Scanner(System.in);
                 System.out.println(exception.getMessage());
                 System.out.println("Please confirm [Y/N]:");
                 String response = scanner.nextLine();
-                if(!response.equals("Y") && !response.equals("y"))
+                if (!response.equals("Y") && !response.equals("y"))
                     people.remove(exception.person);
             }
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-        }catch (NegativeLifespanException | AmbiguousPersonException e) {
+        } catch (NegativeLifespanException | AmbiguousPersonException e) {
             System.err.println(e.getMessage());
         }
 
@@ -93,14 +96,14 @@ public class Person implements Serializable{
         }
     }
 
-    private void validateLifeSpan() throws NegativeLifespanException{
-        if (deathDate != null && deathDate.isBefore(birthDate)){
+    private void validateLifeSpan() throws NegativeLifespanException {
+        if (deathDate != null && deathDate.isBefore(birthDate)) {
             throw new NegativeLifespanException(this);
         }
     }
 
     private void validateParentingAge() throws ParentingAgeException {
-        for(Person parent: parents) {
+        for (Person parent : parents) {
             if (birthDate.isBefore(parent.birthDate.plusYears(15)) || (parent.deathDate != null && birthDate.isAfter(parent.deathDate)))
                 throw new ParentingAgeException(this, parent);
         }
@@ -156,4 +159,35 @@ public class Person implements Serializable{
 
     //<----------------------------------------------------------------------------------------zad7
 
+    public String generateTree() {
+        Function<Person, String> cleanPersonName = person -> person.name.replace(" ", "");
+        Function<Person, String> addObject = person -> String.format("object %s", cleanPersonName.apply(person));
+        String name = cleanPersonName.apply(this);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("@startuml\n");
+        stringBuilder.append(addObject.apply(this));
+        if (this.parents != null) {
+            String parentsString = parents.stream()
+                    .map(parent -> "\n" + addObject.apply(parent) + "\n" + cleanPersonName.apply(parent) + "<--" + name)
+                    .collect(Collectors.joining());
+            stringBuilder.append(parentsString);
+        }
+        stringBuilder.append("\n@enduml");
+        return stringBuilder.toString();
+    }
+
+    public static String generateTree(List<Person> people) {
+        Function<Person, String> cleanPersonName = person -> person.name.replace(" ", "");
+        Function<Person, String> addObject = person -> String.format("object %s\n", cleanPersonName.apply(person));
+
+        String peopleString = people.stream().map(person -> addObject.apply(person)).collect(Collectors.joining());
+
+        String parentsString = people.stream().flatMap(person -> person.parents.isEmpty() ? Stream.empty() :
+                person.parents.stream()
+                        .map(parent -> "\n" + cleanPersonName.apply(parent) + " <-- " +
+                                cleanPersonName.apply(person))).collect(Collectors.joining());
+
+        return String.format("@startuml\n%s%s\n@enduml", peopleString, parentsString);
+
+    }
 }
