@@ -7,20 +7,17 @@ import java.util.List;
 
 public class SvgScene {
     List<Shape> shapes;
-
     public SvgScene() {
-        shapes = new ArrayList<>();
+        this.shapes = new ArrayList<>();
     }
-
     public void add(Shape shape) {
-        shapes.add(shape);
+        this.shapes.add(shape);
     }
 
     public void save(String path) {
         StringBuilder sb = new StringBuilder();
         sb.append("<html><body><svg width=\"1024\" height=\"768\" xmlns=\"http://www.w3.org/2000/svg\">\n");
-        for (Shape i : shapes
-        ) {
+        for (Shape i : shapes) {
             sb.append(i.toSvg(""));
             sb.append("\n");
         }
